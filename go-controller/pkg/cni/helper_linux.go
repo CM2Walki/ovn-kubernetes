@@ -152,7 +152,7 @@ func (pr *PodRequest) ConfigureInterface(namespace string, podName string, macAd
 func (pr *PodRequest) PlatformSpecificCleanup() error {
 	ifaceName := pr.SandboxID[:15]
 	ovsArgs := []string{
-		"del-port", "br-int", ifaceName,
+		"--if-exists", "del-port", "br-int", ifaceName,
 	}
 	out, err := exec.Command("ovs-vsctl", ovsArgs...).CombinedOutput()
 	if err != nil && !strings.Contains(string(out), "no port named") {

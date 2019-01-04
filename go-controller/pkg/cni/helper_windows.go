@@ -236,7 +236,7 @@ func (pr *PodRequest) PlatformSpecificCleanup() error {
 
 	endpointName := fmt.Sprintf("%s_%s", namespace, podName)
 	ovsArgs := []string{
-		"del-port", "br-int", endpointName,
+		"--if-exists", "del-port", "br-int", endpointName,
 	}
 	out, err := exec.Command("ovs-vsctl", ovsArgs...).CombinedOutput()
 	if err != nil && !strings.Contains(string(out), "no port named") {
